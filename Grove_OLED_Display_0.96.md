@@ -6,7 +6,6 @@
 
 **Grove - OLED Display 0.96"** module is an OLED monochrome 128×64dot matrix display module with Grove 4pin I2C Interface.Comparing to LCD, OLED screens are way more competitive, which has a number of advantages such as high brightness, self-emission, high contrast ratio, slim / thin outline, wide viewing angle, wide temperature range, and low power consumption. It has bigger screen so that it can display more contents than the OLED 96×96. 
 
-
 [![](https://raw.githubusercontent.com/SeeedDocument/Seeed-WiKi/master/docs/images/get_one_now.png)](https://www.seeedstudio.com/item_detail.html?p_id=781)
 
 ##Features
@@ -34,216 +33,269 @@
 |Dot Size	                     |-|0.15(W)×0.15 (H)|-	           |mm            |
 |Wide range of operating temperature |-|-20~70 |-                      |℃            |
  
-##Usage
+##Getting Started
 ###With Arduino
 The OLED128*64 uses all the pins of SSD1308 chip, the default original point is on the top left corner. You can also change the original point by adjusting the program and in order to display your desired patterns. For more details, please consult [SSD1308_1.0.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/SSD1308_1.0.pdf) and [LY190-128064.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/LY190-128064.pdf).
 
-Here we demonstrate how to display "Seeedstudio" on the screen.
+Here we demonstrate how to display "Hello World" on the screen.
 
-- Plug the Grove OLED Display 128*64 onto the I2C port on Grove Base Shield, and then plug the Base Shield onto Arduino;
+- Plug the Grove OLED Display 128*64 onto the I2C port on Grove Base Shield, and then plug the Base Shield onto Arduino or Seeeduino;
 
-- Download the library File:OLED_Display128X64 Library;
+- Download the library code from [GitHub](https://github.com/Seeed-Studio/OLED_Display_128X64);
 
-- Unzip it into the libraries file of Arduino IDE by the path: ..\arduino-1.0\libraries.
-
-- Open the code directly by the path: File -> Example ->OLED_Display12864->OLED_Bitmap_Inverse_Display.
+<iframe style="height: 510px; width: 100%; margin: 10px 0 10px;" allowTransparency="true" src="https://codebender.cc/embed/example/SeeedGrayOLED/OLED_Hello_World" frameborder="0"></iframe>
 
 
+- Download and upload the code. If you do not know how to upload an Arduino sketch, please visit https://www.arduino.cc/en/Guide/Windows for Windows user or https://www.arduino.cc/en/Guide/MacOSX for Mac user. You can see the result as below.
 
+**Tips:** if you use Seeeduino, please also select **Boards** under **Tools** as you upload sketches.
+
+
+###With Beaglebone Green
+To begin editing programs that live on BBG, you can use the Cloud9 IDE.
+As a simple exercise to become familiar with Cloud9 IDE, creating a simple application to blink one of the 4 user programmable LEDs on the BeagleBone is a good start.
+If this is your first time to use Cloud9 IDE, please follow this link. 
+
+**Step1**: Click the "+" in the top-right to create a new file.
+
+**Step2**:Copy and paste the following code into the new tab
 ``` python
-@requires_authorization
-def somefunc(param1='', param2=0):
-    '''A docstring'''
-    if param1 > param2: # interesting
-        print 'Greater'
-    return (param2 - param1 + 1) or None
-class SomeClass:
-    pass
->>> message = '''interpreter
-... prompt'''
+from Adafruit_I2C import Adafruit_I2C
+import time
+import math
+ 
+ 
+Oled = Adafruit_I2C(0x3c)
+Command_Mode=0x80
+Data_mode=0x40
+ 
+grayH= 0xF0
+grayL= 0x0F
+Normal_Display_Cmd=0xA4
+ 
+BasicFont = [[0 for x in xrange(8)] for x in xrange(10)]
+BasicFont=[[0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00],
+[0x00,0x00,0x5F,0x00,0x00,0x00,0x00,0x00],
+[0x00,0x00,0x07,0x00,0x07,0x00,0x00,0x00],
+[0x00,0x14,0x7F,0x14,0x7F,0x14,0x00,0x00],
+[0x00,0x24,0x2A,0x7F,0x2A,0x12,0x00,0x00],
+[0x00,0x23,0x13,0x08,0x64,0x62,0x00,0x00],
+[0x00,0x36,0x49,0x55,0x22,0x50,0x00,0x00],
+[0x00,0x00,0x05,0x03,0x00,0x00,0x00,0x00],
+[0x00,0x1C,0x22,0x41,0x00,0x00,0x00,0x00],
+[0x00,0x41,0x22,0x1C,0x00,0x00,0x00,0x00],
+[0x00,0x08,0x2A,0x1C,0x2A,0x08,0x00,0x00],
+[0x00,0x08,0x08,0x3E,0x08,0x08,0x00,0x00],
+[0x00,0xA0,0x60,0x00,0x00,0x00,0x00,0x00],
+[0x00,0x08,0x08,0x08,0x08,0x08,0x00,0x00],
+[0x00,0x60,0x60,0x00,0x00,0x00,0x00,0x00],
+[0x00,0x20,0x10,0x08,0x04,0x02,0x00,0x00],
+[0x00,0x3E,0x51,0x49,0x45,0x3E,0x00,0x00],
+[0x00,0x00,0x42,0x7F,0x40,0x00,0x00,0x00],
+[0x00,0x62,0x51,0x49,0x49,0x46,0x00,0x00],
+[0x00,0x22,0x41,0x49,0x49,0x36,0x00,0x00],
+[0x00,0x18,0x14,0x12,0x7F,0x10,0x00,0x00],
+[0x00,0x27,0x45,0x45,0x45,0x39,0x00,0x00],
+[0x00,0x3C,0x4A,0x49,0x49,0x30,0x00,0x00],
+[0x00,0x01,0x71,0x09,0x05,0x03,0x00,0x00],
+[0x00,0x36,0x49,0x49,0x49,0x36,0x00,0x00],
+[0x00,0x06,0x49,0x49,0x29,0x1E,0x00,0x00],
+[0x00,0x00,0x36,0x36,0x00,0x00,0x00,0x00],
+[0x00,0x00,0xAC,0x6C,0x00,0x00,0x00,0x00],
+[0x00,0x08,0x14,0x22,0x41,0x00,0x00,0x00],
+[0x00,0x14,0x14,0x14,0x14,0x14,0x00,0x00],
+[0x00,0x41,0x22,0x14,0x08,0x00,0x00,0x00],
+[0x00,0x02,0x01,0x51,0x09,0x06,0x00,0x00],
+[0x00,0x32,0x49,0x79,0x41,0x3E,0x00,0x00],
+[0x00,0x7E,0x09,0x09,0x09,0x7E,0x00,0x00],
+[0x00,0x7F,0x49,0x49,0x49,0x36,0x00,0x00],
+[0x00,0x3E,0x41,0x41,0x41,0x22,0x00,0x00],
+[0x00,0x7F,0x41,0x41,0x22,0x1C,0x00,0x00],
+[0x00,0x7F,0x49,0x49,0x49,0x41,0x00,0x00],
+[0x00,0x7F,0x09,0x09,0x09,0x01,0x00,0x00],
+[0x00,0x3E,0x41,0x41,0x51,0x72,0x00,0x00],
+[0x00,0x7F,0x08,0x08,0x08,0x7F,0x00,0x00],
+[0x00,0x41,0x7F,0x41,0x00,0x00,0x00,0x00],
+[0x00,0x20,0x40,0x41,0x3F,0x01,0x00,0x00],
+[0x00,0x7F,0x08,0x14,0x22,0x41,0x00,0x00],
+[0x00,0x7F,0x40,0x40,0x40,0x40,0x00,0x00],
+[0x00,0x7F,0x02,0x0C,0x02,0x7F,0x00,0x00],
+[0x00,0x7F,0x04,0x08,0x10,0x7F,0x00,0x00],
+[0x00,0x3E,0x41,0x41,0x41,0x3E,0x00,0x00],
+[0x00,0x7F,0x09,0x09,0x09,0x06,0x00,0x00],
+[0x00,0x3E,0x41,0x51,0x21,0x5E,0x00,0x00],
+[0x00,0x7F,0x09,0x19,0x29,0x46,0x00,0x00],
+[0x00,0x26,0x49,0x49,0x49,0x32,0x00,0x00],
+[0x00,0x01,0x01,0x7F,0x01,0x01,0x00,0x00],
+[0x00,0x3F,0x40,0x40,0x40,0x3F,0x00,0x00],
+[0x00,0x1F,0x20,0x40,0x20,0x1F,0x00,0x00],
+[0x00,0x3F,0x40,0x38,0x40,0x3F,0x00,0x00],
+[0x00,0x63,0x14,0x08,0x14,0x63,0x00,0x00],
+[0x00,0x03,0x04,0x78,0x04,0x03,0x00,0x00],
+[0x00,0x61,0x51,0x49,0x45,0x43,0x00,0x00],
+[0x00,0x7F,0x41,0x41,0x00,0x00,0x00,0x00],
+[0x00,0x02,0x04,0x08,0x10,0x20,0x00,0x00],
+[0x00,0x41,0x41,0x7F,0x00,0x00,0x00,0x00],
+[0x00,0x04,0x02,0x01,0x02,0x04,0x00,0x00],
+[0x00,0x80,0x80,0x80,0x80,0x80,0x00,0x00],
+[0x00,0x01,0x02,0x04,0x00,0x00,0x00,0x00],
+[0x00,0x20,0x54,0x54,0x54,0x78,0x00,0x00],
+[0x00,0x7F,0x48,0x44,0x44,0x38,0x00,0x00],
+[0x00,0x38,0x44,0x44,0x28,0x00,0x00,0x00],
+[0x00,0x38,0x44,0x44,0x48,0x7F,0x00,0x00],
+[0x00,0x38,0x54,0x54,0x54,0x18,0x00,0x00],
+[0x00,0x08,0x7E,0x09,0x02,0x00,0x00,0x00],
+[0x00,0x18,0xA4,0xA4,0xA4,0x7C,0x00,0x00],
+[0x00,0x7F,0x08,0x04,0x04,0x78,0x00,0x00],
+[0x00,0x00,0x7D,0x00,0x00,0x00,0x00,0x00],
+[0x00,0x80,0x84,0x7D,0x00,0x00,0x00,0x00],
+[0x00,0x7F,0x10,0x28,0x44,0x00,0x00,0x00],
+[0x00,0x41,0x7F,0x40,0x00,0x00,0x00,0x00],
+[0x00,0x7C,0x04,0x18,0x04,0x78,0x00,0x00],
+[0x00,0x7C,0x08,0x04,0x7C,0x00,0x00,0x00],
+[0x00,0x38,0x44,0x44,0x38,0x00,0x00,0x00],
+[0x00,0xFC,0x24,0x24,0x18,0x00,0x00,0x00],
+[0x00,0x18,0x24,0x24,0xFC,0x00,0x00,0x00],
+[0x00,0x00,0x7C,0x08,0x04,0x00,0x00,0x00],
+[0x00,0x48,0x54,0x54,0x24,0x00,0x00,0x00],
+[0x00,0x04,0x7F,0x44,0x00,0x00,0x00,0x00],
+[0x00,0x3C,0x40,0x40,0x7C,0x00,0x00,0x00],
+[0x00,0x1C,0x20,0x40,0x20,0x1C,0x00,0x00],
+[0x00,0x3C,0x40,0x30,0x40,0x3C,0x00,0x00],
+[0x00,0x44,0x28,0x10,0x28,0x44,0x00,0x00],
+[0x00,0x1C,0xA0,0xA0,0x7C,0x00,0x00,0x00],
+[0x00,0x44,0x64,0x54,0x4C,0x44,0x00,0x00],
+[0x00,0x08,0x36,0x41,0x00,0x00,0x00,0x00],
+[0x00,0x00,0x7F,0x00,0x00,0x00,0x00,0x00],
+[0x00,0x41,0x36,0x08,0x00,0x00,0x00,0x00],
+[0x00,0x02,0x01,0x01,0x02,0x01,0x00,0x00],
+[0x00,0x02,0x05,0x05,0x02,0x00,0x00,0x00]]
+ 
+def oled_init():
+    sendCommand(0xFD) # Unlock OLED driver IC MCU interface from entering command. i.e: Accept commands
+    sendCommand(0x12)
+    sendCommand(0xAE) # Set display off
+    sendCommand(0xA8) # set multiplex ratio
+    sendCommand(0x5F) # 96
+    sendCommand(0xA1) # set display start line
+    sendCommand(0x00)
+    sendCommand(0xA2) # set display offset
+    sendCommand(0x60)
+    sendCommand(0xA0) # set remap
+    sendCommand(0x46)
+    sendCommand(0xAB) # set vdd internal
+    sendCommand(0x01) 
+    sendCommand(0x81) # set contrasr
+    sendCommand(0x53) # 100 nit
+    sendCommand(0xB1) # Set Phase Length
+    sendCommand(0X51) 
+    sendCommand(0xB3) # Set Display Clock Divide Ratio/Oscillator Frequency
+    sendCommand(0x01)
+    sendCommand(0xB9)
+    sendCommand(0xBC) # set pre_charge voltage/VCOMH
+    sendCommand(0x08) # (0x08);
+    sendCommand(0xBE) # set VCOMH
+    sendCommand(0X07) # (0x07);
+    sendCommand(0xB6) # Set second pre-charge period
+    sendCommand(0x01) 
+    sendCommand(0xD5) # enable second precharge and enternal vsl
+    sendCommand(0X62) # (0x62);
+    sendCommand(0xA4) # Set Normal Display Mode
+    sendCommand(0x2E) # Deactivate Scroll
+    sendCommand(0xAF) # Switch on display
+    time.sleep(0.1)
+    # delay(100);
+ 
+    # Row Address
+    sendCommand(0x75)    # Set Row Address 
+    sendCommand(0x00)    # Start 0
+    sendCommand(0x5f)    # End 95 
+ 
+ 
+    # Column Address
+    sendCommand(0x15)    # Set Column Address 
+    sendCommand(0x08)    # Start from 8th Column of driver IC. This is 0th Column for OLED 
+    sendCommand(0x37)    # End at  (8 + 47)th column. Each Column has 2 pixels(segments)
+ 
+    # Init gray level for text. Default:Brightest White
+    grayH= 0xF0
+    grayL= 0x0F
+ 
+def sendCommand(byte):
+    Oled.write8(Command_Mode,byte)
+ 
+def sendData(byte):
+    Oled.write8(Data_mode,byte)
+ 
+def multi_comm(commands):
+    for c in commands:
+        sendCommand(c)
+ 
+def oled_clearDisplay():
+    for j in range (0,48):
+        for i in range (0,96):
+            sendData(0x00)
+ 
+def oled_setNormalDisplay():
+    sendCommand(Normal_Display_Cmd)
+ 
+def oled_setVerticalMode():
+    sendCommand(0xA0)    # remap to
+    sendCommand(0x46)    # Vertical mode
+ 
+def oled_setTextXY(Row,Column):
+    sendCommand(0x15)             # Set Column Address
+    sendCommand(0x08+(Column*4))  # Start Column: Start from 8
+    sendCommand(0x37)             # End Column
+    # Row Address
+    sendCommand(0x75)             # Set Row Address
+    sendCommand(0x00+(Row*8))     # Start Row
+    sendCommand(0x07+(Row*8))     # End Row
+ 
+def oled_putChar(C):
+    C_add=ord(C)
+    if C_add<32 or C_add>127:     # Ignore non-printable ASCII characters
+        C=' '
+        C_add=ord(C)
+ 
+    for i in range(0,8,2):
+        for j in range(0,8):
+            c=0x00
+            bit1=((BasicFont[C_add-32][i])>>j)&0x01
+            bit2=((BasicFont[C_add-32][i+1])>>j)&0x01
+            if bit1:
+                c=c|grayH
+            else:
+                c=c|0x00
+            if bit2:
+                c=c|grayL
+            else:
+                c=c|0x00
+            sendData(c)
+ 
+def oled_putString(String):
+    for i in range(len(String)):
+        oled_putChar(String[i])   
+ 
+ 
+if __name__=="__main__":
+    oled_init()
+    oled_setNormalDisplay()
+    oled_setTextXY(0,0)
+    oled_putString("Hello")
+    time.sleep(10)
+    #Oled.write8(Command_Mode,0xFD)
+    #sendCommand(0xFD)
+    print 'hello world'
 ```
-##Getting Started
-
-// to be continue
-
-
-##APIs
-
-###1. Set the Baudrate
-
-This function is used to initialize the baudrate of the CAN Bus system.
-
-The available baudrates are listed as follws:
-
-	#define CAN_5KBPS    1
-	#define CAN_10KBPS   2
-	#define CAN_20KBPS   3
-	#define CAN_25KBPS   4 
-	#define CAN_31K25BPS 5
-	#define CAN_33KBPS   6
-	#define CAN_40KBPS   7
-	#define CAN_50KBPS   8
-	#define CAN_80KBPS   9
-	#define CAN_83K3BPS  10
-	#define CAN_95KBPS   11
-	#define CAN_100KBPS  12
-	#define CAN_125KBPS  13
-	#define CAN_200KBPS  14
-	#define CAN_250KBPS  15
-	#define CAN_500KBPS  16
-	#define CAN_666kbps  17
-	#define CAN_1000KBPS 18
-
-###2. Set Receive Mask and Filter
-
-There are **2** receive mask registers and **5** filter registers on the controller chip that guarantee you get data from the target device. They are useful especially in a large network consisting of numerous nodes.
-
-We provide two functions for you to utilize these mask and filter registers. They are:
-
-**Mask:**
-
-	init_Mask(unsigned char num, unsigned char ext, unsigned char ulData);
-
-**Filter:**
-
-	init_Filt(unsigned char num, unsigned char ext, unsigned char ulData);
-
-
-- **num** represents which register to use. You can fill 0 or 1 for mask and 0 to 5 for filter.
-- **ext** represents the status of the frame. 0 means it's a mask or filter for a standard frame. 1 means it's for a extended frame.
-- **ulData** represents the content of the mask of filter.
-
-###3. Check Receive
-The MCP2515 can operate in either a polled mode, where the software checks for a received frame, or using additional pins to signal that a frame has been received or transmit completed. 
-
-Use the following function to poll for received frames.
-
-    INT8U MCP_CAN::checkReceive(void);
-
-The function will return 1 if a frame arrives, and 0 if nothing arrives.
-
-###4. Get CAN ID
-When some data arrive, you can use the following function to get the CAN ID of the "send" node.
-
-    INT32U MCP_CAN::getCanId(void)
-
-###5. Send Data
-
-    CAN.sendMsgBuf(INT8U id, INT8U ext, INT8U len, data_buf);
-
-It is a function to send data onto the bus. In which:
-
-* **id** represents where the data come from.
-* **ext** represents the status of the frame. '0' means standard frame. '1' means extended frame.
-* **len** represents the length of this frame.
-* **data_buf** is the content of this message.
-
-For example, In the 'send' example, we have:
-
-    unsigned char stmp[8] = {0, 1, 2, 3, 4, 5, 6, 7};
-    CAN.sendMsgBuf(0x00, 0, 8, stmp); //send out the message 'stmp' to the bus and tell other devices this is a standard frame from 0x00.
-
-###6. Receive Data
-
-The following function is used to receive data on the 'receive' node:
-
-    CAN.readMsgBuf(unsigned char len, unsigned char buf);
-In conditions that masks and filters have been set. This function can only get frames that meet the requirements of masks and filters.
-
-* **len** represents the data length.
-* **buf** is where you store the data.
-
-##Generate a New BaudRate
-
-We had provided many frequently-used baud rate, as below:
-
-	#define CAN_5KBPS    1
-	#define CAN_10KBPS   2
-	#define CAN_20KBPS   3
-	#define CAN_25KBPS   4 
-	#define CAN_31K25BPS 5
-	#define CAN_33KBPS   6
-	#define CAN_40KBPS   7
-	#define CAN_50KBPS   8
-	#define CAN_80KBPS   9
-	#define CAN_83K3BPS  10
-	#define CAN_95KBPS   11
-	#define CAN_100KBPS  12
-	#define CAN_125KBPS  13
-	#define CAN_200KBPS  14
-	#define CAN_250KBPS  15
-	#define CAN_500KBPS  16
-	#define CAN_666kbps  17
-	#define CAN_1000KBPS 18
-
-Yet you may still can't find the rate you want. Here we provide a software to help you to calculate the baud rate you need.
-
-Click [here](https://github.com/SeeedDocument/CAN_BUS_Shield/raw/master/resource/CAN_Baudrate_CalcV1.3.zip) to download the software, it's in Chinese, but never mind, it's easy to use. 
-
-![](https://github.com/SeeedDocument/CAN_BUS_Shield/blob/master/image/CAN_BUS_Shield_SetBaud.jpg?raw=true)
-
-!!!note
-    This software support Windows system only. If you can't open it, please free to contact loovee@seeed.cc for help. 
-
-Open the software, what you need to do is set the baud rate you want, and do some simple setting, then click **calculate**.
-
-Then you will get some data, cfg1, cfg2 and cfg3.
-
-You need to add some code to the library.
-
-Open **mcp_can_dfs.h**, you need to add some code at about line 272:
-
-	#define MCP_16MHz_xxxkBPS_CFG1 (cfg1)    // xxx is the baud rate you need
-	#define MCP_16MHz_xxxkBPS_CFG2 (cfg2)
-	#define MCP_16MHz_xxxkBPS_CFG3 (cfg2)
-
-Then let's go to about line 390, add some code:
-
-	#define CAN_xxxKBPS NUM       // xxx is the baudrate you need, and NUM is a number, you need to get a different from the other rates.
-Open **mcp_can.cpp**, goto the function **mcp2515_configRate**(at about line 190), then add some code:
-
-	case (CAN_xxxKBPS):
-	    cfg1 = MCP_16MHz_xxxkBPS_CFG1;
-	    cfg2 = MCP_16MHz_xxxkBPS_CFG2;
-	    cfg3 = MCP_16MHz_xxxkBPS_CFG3;
-	    break;
-Then you can use the baud rate you need. And please give me a pull request at github when you use a new rate, so I can add it to the library to help the other guys.
-
-
-##Projects
-
-If you want to make some awesome projects with CAN-BUS shield, here's some projects for reference.
-
-###Volkswagen CAN BUS Gaming
-
-![](https://github.com/SeeedDocument/CAN_BUS_Shield/blob/master/image/project1.JPG?raw=true)
-
-Ever wanted to play a car/truck simulator with a real dashboard on your PC? Me too! I'm trying to control a VW Polo 6R dashboard via CAN Bus with an Arduino Uno and a Seeed CAN Bus Shield. Inspired by Silas Parker. Thanks to Sepp and Is0-Mick for their great support!
-
-[![](https://github.com/SeeedDocument/CAN_BUS_Shield/blob/master/image/Wiki_makeitnow_logo.png?raw=true)](http://www.seeed.cc/project_detail.html?id=291)
-
-###Hack your vehicle CAN-BUS
-
-![](https://github.com/SeeedDocument/CAN_BUS_Shield/blob/master/image/project2.jpg?raw=true)
-
-Modern Vehicles all come equipped with a CAN-BUS Controller Area Network, Instead of having a million wires running back and forth from various devices in your car to the battery, its making use of a more clever system.
-
-All electronic functions are connected to the TIPM, (Totally integrated Power Module), such as solenoids/relays to lock the doors or mini motors to wind the windows ect ect.
-
-From each node (IE Switch pod that controls your windows or electric door locks) it broadcasts a message across the CAN. When the TIPM detects a valid message it will react accordingly like, lock the doors , switch on lights and so on.
-
-
-[![](https://github.com/SeeedDocument/CAN_BUS_Shield/blob/master/image/Wiki_makeitnow_logo.png?raw=true)](http://www.instructables.com/id/Hack-your-vehicle-CAN-BUS-with-Arduino-and-Seeed-C/)
-
+**Step3**: Save the file by clicking the disk icon with with the .py extension.
+**Step4**: Connect Grove - OLED to Grove I2C socket on BBG.
+**Step5**: Run the code. You'll find that the Grove - OLED outputs "Hello World".
 ##Resources
 
-* **【PDF】**[CAN-BUS Shield V1.2 Schmatics](https://github.com/SeeedDocument/CAN_BUS_Shield/raw/master/resource/CAN-BUS_Shield_v1.2.pdf)
-* **【Eagle】**[Schematic of CAN-BUS Shield V1.2](https://github.com/SeeedDocument/CAN_BUS_Shield/raw/master/resource/CAN-BUS_Shield_v1.2_sch_pcb.zip) 
-* **【Library】**[Arduino Library for CAN-BUS Shield](https://github.com/Seeed-Studio/CAN_BUS_Shield)
-* **【Datasheet】**[MCP2515 datasheet](https://github.com/SeeedDocument/CAN_BUS_Shield/raw/master/resource/MCP2515.pdf)
-* **【Datasheet】**[MCP2551 datasheet](https://github.com/SeeedDocument/CAN_BUS_Shield/raw/master/resource/Mcp2551.pdf)
-* **【Demo】**[An OBD Demo](https://github.com/Seeed-Studio/CANBUS_SHIELD_OBD_RECIPLE)
-* 【**Tool】**[MCP2515 Baud Rate Tool](https://github.com/SeeedDocument/CAN_BUS_Shield/raw/master/resource/CAN_Baudrate_CalcV1.3.zip)
-
+- [GitHub Library for OLED](https://github.com/Seeed-Studio/OLED_Display_128X64)
+- [Grove-OLED128x64 Schematic.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/Twig-OLED128x64_v0.9b.pdf)
+- [Resources of SSD1308_1.0.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/SSD1308_1.0.pdf)
+- [Resources of LY190-128064.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/LY190-128064.pdf)
 ##Is this page helpful
-<iframe style="height: 600px; width: 500px; margin: 10px 0 10px;" allowTransparency="true" src="https://www.surveymonkey.com/r/32WG3KT" frameborder="0"></iframe>
+<iframe style="height: 600px; width: 500px; margin: 10px 0 10px;" allowTransparency="true" src="https://www.surveymonkey.com/r/M6T9YJK" frameborder="0"></iframe>
