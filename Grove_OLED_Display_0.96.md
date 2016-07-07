@@ -1,75 +1,52 @@
-#CAN-BUS Shield
+#Grove - OLED Display 0.96"
 ----
 ##Introduction
 
 ![](https://github.com/SeeedDocument/CAN_BUS_Shield/blob/master/image/Can_bus_shield_all.jpg?raw=true)
 
-**CAN-BUS** is a common industrial bus because of its long travel distance, medium communication speed and high reliability. It is commonly found on modern machine tools and as an automotive diagnostic bus. 
-
-This CAN-BUS Shield adopts MCP2515 CAN Bus controller with SPI interface and MCP2551 CAN transceiver to give your Arduino/Seeeduino CAN-BUS capibility. With an OBD-II converter cable added on and the OBD-II library imported, you are ready to build an onboard diagnostic device or data logger.
+**Grove - OLED Display 0.96"** module is an OLED monochrome 128×64dot matrix display module with Grove 4pin I2C Interface.Comparing to LCD, OLED screens are way more competitive, which has a number of advantages such as high brightness, self-emission, high contrast ratio, slim / thin outline, wide viewing angle, wide temperature range, and low power consumption. It has bigger screen so that it can display more contents than the OLED 96×96. 
 
 
-[![](https://raw.githubusercontent.com/SeeedDocument/Seeed-WiKi/master/docs/images/get_one_now.png)](http://www.seeedstudio.com/depot/CANBUS-Shield-V12-p-2256.html)
+[![](https://raw.githubusercontent.com/SeeedDocument/Seeed-WiKi/master/docs/images/get_one_now.png)](https://www.seeedstudio.com/item_detail.html?p_id=781)
 
 ##Features
 
-- Implements CAN V2.0B at up to **1 Mb/s**
-- SPI Interface up to **10 MHz**
-- Standard (**11 bit**) and extended (**29 bit**) data and remote frames
-- Two receive buffers with prioritized message storage
-- Industrial standard 9 pin sub-D connector
-- LED indicators
-
-##Hardware Overview
-
-![](https://github.com/SeeedDocument/CAN_BUS_Shield/blob/master/image/hardware_overview_1.png?raw=true)
-
-1. **DB9 Interface** - to connect to OBDII Interface via a DBG-OBD Cable.
-2. **V_OBD** - If get power from OBDII Interface(from DB9)
-3. **Led Indicator**:
-    - **PWR**: power
-    - **TX**: blink when the data is sending
-    - **RX**: blink when there's data coming
-    - **INT**: data interrupt
-4. **Terminal** - CAN_H and CAN_L
-5. **Arduino UNO pin out**
-6. **Serial Grove connector**
-7. **I2C Grove connector**
-8. **ICSP pins**
-9. **IC** - MCP2551, a high-speed can transceiver ([datasheet](https://github.com/SeeedDocument/CAN_BUS_Shield/raw/master/resource/Mcp2551.pdf))
-10. **IC** - MCP2515, stand-alone CAN controller wth SPI interface ([datasheet](https://github.com/SeeedDocument/CAN_BUS_Shield/raw/master/resource/MCP2515.pdf))
-
+- Grove compatible interface
+- Communicate Mode:I2C
+- Low power consumption
+- Display Color: White
+- Wide range of operating temperature:-20℃~70℃
 
 !!!warning
-    When you use more than two CAN Bus Shield in one net, you should think about the impedance.
-    You can just cut P1 in the PCB with a knife, or just remove R3 on the PCB.
+	Please notice: heavy impact or stress on the OLED will cause the breakdown of screen.
 
-###Pin map
 
-![](https://raw.githubusercontent.com/SeeedDocument/CAN_BUS_Shield/master/image/PINMAP.png)
+##Specifications
+|Items	                             |Min	 |Norm	   |Max	   |Unit          |
+|------------------------------------|-------|---------|-------|--------------|
+|Power Voltage (VCC)                 |3.3	 |5.0	   |5.5	   |V             |
+|Driver IC	                         |SSD1308Z	               |-             |
+|Display Color	                     |White	                   |-             |
+|Dot Matrix	                         |128×64                   |-             |
+|Panel Size	                         |26.7(W)×19.26(H)	       |mm            |
+|Active Area	                     |21.74(W)×11.175 (H)	   |mm            |
+|Dot Pitch	                         |0.17(W)×0.175 (H)	       |mm            |
+|Dot Size	                         |0.15(W)×0.15 (H)	       |mm            |
+|Wide range of operating temperature |-20~70                   |℃            |
+ 
+##Usage
+###With Arduino
+The OLED128*64 uses all the pins of SSD1308 chip, the default original point is on the top left corner. You can also change the original point by adjusting the program and in order to display your desired patterns. For more details, please consult File:SSD1308_1.0.pdf and File:LY190-128064.pdf.
 
-!!!note
-    The pin FREE is available for the others usage. 
+Here we demonstrate how to display "Seeedstudio" on the screen.
 
-###CS pin
+- Plug the Grove OLED Display 128*64 onto the I2C port on Grove Base Shield, and then plug the Base Shield onto Arduino;
 
-SPI_CS pin of V1.2 is fefault to **D9**. If you want to change it to **D10**. Take a look at the back of the PCBA, you will find a pad named CS. You can cut the wire that at the left of the pad with a box cutter, and the solder the right 2 pads. 
+- Download the library File:OLED_Display128X64 Library;
 
-!!!warning
-    Be careful when you are going to change CS pin, it's easy to hear yourself or the PCBA.
+- Unzip it into the libraries file of Arduino IDE by the path: ..\arduino-1.0\libraries.
 
-![](https://github.com/SeeedDocument/CAN_BUS_Shield/blob/master/image/hardware_overview_pins_setting.png?raw=true)
-
-###SPI pins
-
-The SPI pins(SCK, MISO, MOSI) is default to the ICSP pins. But for some Boards, maybe the SPI pins is at D11~D13, if so you need to change something in the PCBA. Take a look that the back of the PCBA, there're there pads, MOSI, MISO and SCK, they are default to A. You can change them to B if needed.
-
-!!!note
-    For Arduino UNO, Arduino Mega, Arduino Leonardo and any others AVR based Arduino boards, default is working. 
-
-!!!warning
-    Be careful when you are going to change SPI pins, it's easy to hear yourself or the PCBA.
-
+- Open the code directly by the path: File -> Example ->OLED_Display12864->OLED_Bitmap_Inverse_Display.
 
 ##Getting Started
 

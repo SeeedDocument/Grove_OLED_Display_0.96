@@ -1,14 +1,14 @@
-Lipo Rider Pro
+Grove - OLED Display 0.96"
 ---
 
-**SKU**: [106990008](http://www.seeedstudio.com/item_detail.html?p_id=992)
+**SKU**: [104030008](https://www.seeedstudio.com/item_detail.html?p_id=781)
 
-**Wiki Link**: [wiki.seeed.cc](wiki.seeed.cc)
+**Wiki Link**: [wiki.seeed.cc](https://wiki.seeed.cc)
 
 
 ###Change Log:
 
-- **2016-7-6:** create repos by Jiankai.li (jiankai.li@seeed.cc)
+- **2016-7-7:** create repos by Jiankai.li (jiankai.li@seeed.cc)
 
 
 --------
