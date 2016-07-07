@@ -58,6 +58,10 @@ If this is your first time to use Cloud9 IDE, please follow this link.
 
 **Step1**: Click the "+" in the top-right to create a new file.
 
+![](https://raw.githubusercontent.com/SeeedDocument/Grove_OLED_Display_0.96/master/images/C9-create-tab.png)
+
+![](https://raw.githubusercontent.com/SeeedDocument/Grove_OLED_Display_0.96/master/images/C9_newfile.jpg)
+
 **Step2**:Copy and paste the following code into the new tab
 ``` python
 from Adafruit_I2C import Adafruit_I2C
@@ -289,7 +293,9 @@ if __name__=="__main__":
     print 'hello world'
 ```
 **Step3**: Save the file by clicking the disk icon with with the .py extension.
+
 **Step4**: Connect Grove - OLED to Grove I2C socket on BBG.
+
 **Step5**: Run the code. You'll find that the Grove - OLED outputs "Hello World".
 ##Resources
 
@@ -297,5 +303,7 @@ if __name__=="__main__":
 - [Grove-OLED128x64 Schematic.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/Twig-OLED128x64_v0.9b.pdf)
 - [Resources of SSD1308_1.0.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/SSD1308_1.0.pdf)
 - [Resources of LY190-128064.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/LY190-128064.pdf)
+
+
 ##Is this page helpful
 <iframe style="height: 600px; width: 500px; margin: 10px 0 10px;" allowTransparency="true" src="https://www.surveymonkey.com/r/M6T9YJK" frameborder="0"></iframe>
