@@ -25,7 +25,7 @@
 |Items	                             |Min	 |Norm	   |Max	   |Unit          |
 |------------------------------------|-------|---------|-------|--------------|
 |Power Voltage (VCC)                 |3.3	 |5.0	   |5.5	   |V             |
-|Driver IC	                         |SSD1308Z	               |-             |
+|Driver IC	                     |SSD1308Z	                   |-             |
 |Display Color	                     |White	                   |-             |
 |Dot Matrix	                         |128×64                   |-             |
 |Panel Size	                         |26.7(W)×19.26(H)	       |mm            |
