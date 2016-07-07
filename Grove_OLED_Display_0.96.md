@@ -23,16 +23,16 @@
 
 ##Specifications
 |Items	                             |Min	 |Norm	   |Max	   |Unit          |
-|------------------------------------|-------|---------|-------|--------------|
+|------------------------------------|-----------|---------|-------|--------------|
 |Power Voltage (VCC)                 |3.3	 |5.0	   |5.5	   |V             |
 |Driver IC	                     |SSD1308Z	                   |-             |
 |Display Color	                     |White	                   |-             |
-|Dot Matrix	                         |128×64                   |-             |
-|Panel Size	                         |26.7(W)×19.26(H)	       |mm            |
+|Dot Matrix	                     |128×64                       |-             |
+|Panel Size	                     |26.7(W)×19.26(H)	           |mm            |
 |Active Area	                     |21.74(W)×11.175 (H)	   |mm            |
-|Dot Pitch	                         |0.17(W)×0.175 (H)	       |mm            |
-|Dot Size	                         |0.15(W)×0.15 (H)	       |mm            |
-|Wide range of operating temperature |-20~70                   |℃            |
+|Dot Pitch	                     |0.17(W)×0.175 (H)	           |mm            |
+|Dot Size	                     |0.15(W)×0.15 (H)	           |mm            |
+|Wide range of operating temperature |-20~70                       |℃            |
  
 ##Usage
 ###With Arduino
