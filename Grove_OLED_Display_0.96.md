@@ -1,6 +1,13 @@
-#Grove - OLED Display 0.96"
-----
-##Introduction
+---
+title: Grove - OLED Display 0.96 inch
+category: Display
+bzurl: https://www.seeedstudio.com/Grove-OLED-Display-0.96%22-p-781.html
+oldwikiname: Grove - OLED Display 0.96"
+prodimagename: Grove-OLED-0.96.png
+surveyurl: https://www.surveymonkey.com/r/Grove_OLED_0_96
+sku: 104030008
+---
+
 
 ![](https://raw.githubusercontent.com/SeeedDocument/Grove_OLED_Display_0.96/master/images/Grove-OLED-0.96.png)
 
@@ -297,13 +304,10 @@ if __name__=="__main__":
 **Step4**: Connect Grove - OLED to Grove I2C socket on BBG.
 
 **Step5**: Run the code. You'll find that the Grove - OLED outputs "Hello World".
+
 ##Resources
 
 - [GitHub Library for OLED](https://github.com/Seeed-Studio/OLED_Display_128X64)
 - [Grove-OLED128x64 Schematic.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/Twig-OLED128x64_v0.9b.pdf)
 - [Resources of SSD1308_1.0.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/SSD1308_1.0.pdf)
 - [Resources of LY190-128064.pdf](https://github.com/SeeedDocument/Grove_OLED_Display_0.96/blob/master/resource/LY190-128064.pdf)
-
-
-##Is this page helpful
-<iframe style="height: 600px; width: 500px; margin: 10px 0 10px;" allowTransparency="true" src="https://www.surveymonkey.com/r/M6T9YJK" frameborder="0"></iframe>
